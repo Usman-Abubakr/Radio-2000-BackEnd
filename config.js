@@ -1,4 +1,6 @@
-const firebase = require("firebase");
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { collection } from "firebase/firestore";const firebase = require("firebase");
 const firebaseConfig = {
     apiKey: "AIzaSyDcCFq6Ac_UZgjCPQFTGeYrvGIcwLum-P4",
     authDomain: "radio-2000-backend.firebaseapp.com",
