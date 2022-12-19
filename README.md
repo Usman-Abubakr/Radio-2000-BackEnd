@@ -3,7 +3,7 @@
 The API backend for Radio 2000. 
 Created using Node.js with the Express framework. 
 Deployed to the web using [Vercel (check it out)](https://radio-2000-back-end.vercel.app/).
-Data access with Firestore database.
+Remote database made possible with Firestore.
 
 ## Tasks:
 - [x] API endpoint for List of radio stations
