@@ -38,7 +38,52 @@ app.get("/getAllUsers", async (req, res) => {
     res.send(list);
 });
 
-
+app.get('/getStation/:name', async (req, res) => {
+    const name = req.params.name;
+  
+    const stationsRef  = db.collection('Stations');
+    const stationResult = await stationsRef.where('name', '==', name).get();
+    const list = stationResult.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    if (list.length === 0) {
+      res.send("Station not found!") 
+    }
+    else {
+      res.send(list);
+    }
+  
+    //// Old method, only able to access data if id known
+    // const station = db.collection('Stations').doc('CoyEyv08Foi5hBf3V98E');
+    // const doc = await station.get();
+    // if (!doc.exists) {
+    //   console.log('Station not found!');
+    // } else {
+    //   console.log('Document data:', doc.data());
+    //   res.send(doc.data());
+    // }
+  
+  
+    //// Offline data access
+    // const radioStation = radioStations.find(s => s.name === req.params.name);
+    // if (!radioStation) res.status(404).send("Station with requested name was not found.")
+    // res.send(radioStation);
+  });
+  
+  
+  
+  app.get('/getUser/:name', async (req, res) => {
+    const name = req.params.name;
+    console.log('-------------------------------' + name);
+  
+    const usersRef  = db.collection('Users');
+    const userResult = await usersRef.where('name', '==', name).get();
+    const list = userResult.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    if (list.length === 0) {
+      res.send("User not found!") 
+    }
+    else {
+      res.send(list);
+    }
+  });
 
 
 /*
