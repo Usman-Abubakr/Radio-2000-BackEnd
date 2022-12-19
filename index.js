@@ -1,8 +1,45 @@
-const express = require('express');
-const app = express();
+const express = require("express");
+const cors = require("cors");
+const Stations = require("./config");
+const Users = require("./config");
 const port = 8080; // Change if unavailable
-  
+const app = express();
 app.use(express.json());
+app.use(cors());
+
+
+// Open port at defined location
+// If unavailable, change port constant
+app.listen(port, () => {
+    console.log(`Server: http://localhost:${port}`);
+});
+
+// Test on landing page
+app.get('/', (req, res) => {
+    res.send('Hello World!'
+    + '<br> <br> Endpoints available: '
+    + '<br> - /getAllStations ' 
+    + '<br> - /getStation/:name ' 
+    + '<br> - /getAllUsers ' 
+    + '<br> - /getUser/:name ' 
+    + '<br> - /setUser' );
+});
+
+
+app.get("/getAllStations", async (req, res) => {
+    const snapshot = await Stations.get();
+    const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    res.send(list);
+  
+  });
+
+
+
+
+
+
+/*
+NO LONGER NEEDED AS DATA ACCESSED FROM FIRESTORE
 
 // Predifined data to use with endpoints
 const radioStations = [
@@ -48,23 +85,6 @@ const Users = [
     },
 ];
 
-// Open port at defined location
-// If unavailable, change port constant
-app.listen(port, () => {
-    console.log(`Server: http://localhost:${port}`);
-});
-
-// Test on landing page
-app.get('/', (req, res) => {
-    res.send('Hello World!'
-    + '<br> <br> Endpoints available: '
-    + '<br> - /getAllStations ' 
-    + '<br> - /getStation/:name ' 
-    + '<br> - /getAllUsers ' 
-    + '<br> - /getUser/:name ' 
-    + '<br> - /setUser' );
-});
-
 app.get('/getAllStations', (req, res) => {
     res.send(radioStations);
 });
@@ -93,6 +113,4 @@ app.post('/setUser', (req, res) => {
     Users.push(user);
     res.send(user);
 });
-
-// Export the Express API
-module.exports = app;
+*/
