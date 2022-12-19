@@ -92,6 +92,9 @@ app.post("/setUser", async (req, res) => {
     res.send({ msg: "User Added, name: " + String(req.body.name) + ", email: " + req.body.email});
 });
 
+// Export the Express API to run on vercel
+module.exports = app;
+
 
 /*
 ------------------------------------------------
