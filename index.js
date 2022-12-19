@@ -1,6 +1,8 @@
 const express = require("express");
+// import express from 'express';
 // const cors = require("cors");
 const db = require("./config");
+// import db from 'config.js';
 const port = 8080; // Change if unavailable
 const app = express();
 app.use(express.json());
@@ -24,7 +26,7 @@ app.get('/', (req, res) => {
     + '<br> - /setUser' );
 });
 
-
+// Get data for all stations
 app.get("/getAllStations", async (req, res) => {
     const snapshot = await db.collection('Stations').get();
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -32,15 +34,16 @@ app.get("/getAllStations", async (req, res) => {
   
 });
 
+// Get data for all users
 app.get("/getAllUsers", async (req, res) => {
     const snapshot = await db.collection('Users').get();
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     res.send(list);
 });
 
+// Get data for a single station
 app.get('/getStation/:name', async (req, res) => {
     const name = req.params.name;
-  
     const stationsRef  = db.collection('Stations');
     const stationResult = await stationsRef.where('name', '==', name).get();
     const list = stationResult.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -63,11 +66,9 @@ app.get('/getStation/:name', async (req, res) => {
 });
   
   
-  
+// Get data for a single user
 app.get('/getUser/:name', async (req, res) => {
     const name = req.params.name;
-    console.log('-------------------------------' + name);
-  
     const usersRef  = db.collection('Users');
     const userResult = await usersRef.where('name', '==', name).get();
     const list = userResult.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -81,12 +82,7 @@ app.get('/getUser/:name', async (req, res) => {
 
 // Adding users to the database, via JSON using POSTMAN tool.
 app.post("/setUser", async (req, res) => {
-    const data = req.body;
-    // const data = {
-    //           name: req.body.name,
-    //           email: req.body.email
-    //       };
-  
+    const data = req.body;  
     console.log("Adding user: ", data);
     await User.add( data );
     res.send({ msg: "User Added, name: " + String(req.body.name) + ", email: " + req.body.email});
