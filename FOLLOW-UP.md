@@ -13,6 +13,7 @@
 - I would implement unit testing and a migration tool. In the limited time it was out of scope, however it would be beneficial for the application in the long term. 
 - Other features not added due to time were the other CRUD functions; update and delete, these would help complete the functions and make this project more viable to be used professionally.
 - Having a basic input form for the 'create' functions would help with testing, for example if testing on a mobile browser, POSTMAN would not be available.
+- Having type checking and data handling methods would be useful as you cannot always rely on the data passed to be correct, this would help prevent the server from crashing. Also updating the search function to search for related data rather than exact data to prevent user errors like spelling.
 
 
 #### **Q) Which parts are you most proud of? And why?**
