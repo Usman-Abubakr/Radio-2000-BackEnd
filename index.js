@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const Stations = require("./config");
-const Users = require("./config");
+const db = require("./config");
 const port = 8080; // Change if unavailable
 const app = express();
 app.use(express.json());
@@ -27,20 +26,25 @@ app.get('/', (req, res) => {
 
 
 app.get("/getAllStations", async (req, res) => {
-    const snapshot = await Stations.get();
+    const snapshot = await db.collection('Stations').get();
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     res.send(list);
   
-  });
+});
 
-
+app.get("/getAllUsers", async (req, res) => {
+    const snapshot = await db.collection('Users').get();
+    const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    res.send(list);
+});
 
 
 
 
 /*
+------------------------------------------------
 NO LONGER NEEDED AS DATA ACCESSED FROM FIRESTORE
-
+------------------------------------------------
 // Predifined data to use with endpoints
 const radioStations = [
     {
