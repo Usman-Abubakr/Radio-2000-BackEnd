@@ -84,7 +84,8 @@ app.get('/getUser/:name', async (req, res) => {
 app.post("/setUser", async (req, res) => {
     const data = req.body;  
     console.log("Adding user: ", data);
-    await User.add( data );
+
+    await db.collection('Users').add( data );
     res.send({ msg: "User Added, name: " + String(req.body.name) + ", email: " + req.body.email});
 });
 
