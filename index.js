@@ -60,17 +60,11 @@ app.get('/getStation/:name', async (req, res) => {
     //   console.log('Document data:', doc.data());
     //   res.send(doc.data());
     // }
-  
-  
-    //// Offline data access
-    // const radioStation = radioStations.find(s => s.name === req.params.name);
-    // if (!radioStation) res.status(404).send("Station with requested name was not found.")
-    // res.send(radioStation);
-  });
+});
   
   
   
-  app.get('/getUser/:name', async (req, res) => {
+app.get('/getUser/:name', async (req, res) => {
     const name = req.params.name;
     console.log('-------------------------------' + name);
   
@@ -83,7 +77,20 @@ app.get('/getStation/:name', async (req, res) => {
     else {
       res.send(list);
     }
-  });
+});
+
+// Adding users to the database, via JSON using POSTMAN tool.
+app.post("/setUser", async (req, res) => {
+    const data = req.body;
+    // const data = {
+    //           name: req.body.name,
+    //           email: req.body.email
+    //       };
+  
+    console.log("Adding user: ", data);
+    await User.add( data );
+    res.send({ msg: "User Added, name: " + String(req.body.name) + ", email: " + req.body.email});
+});
 
 
 /*
