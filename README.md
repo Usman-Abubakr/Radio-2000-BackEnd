@@ -16,7 +16,7 @@
 
 ## Running the application:
 ### Online:
-- step
+- Project deployed on Vercel, accessible at [https://radio-2000-back-end.vercel.app/](https://radio-2000-back-end.vercel.app/)
 
 ### Locally:
-- step
+- In directory terminal, run `node .` or `node index.js` .
